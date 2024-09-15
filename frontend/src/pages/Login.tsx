@@ -9,7 +9,7 @@ import {
   FormControl,
   SelectChangeEvent
 } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { User } from '../services/types/user';
 import { UserApi } from '../services/api/users';
 
@@ -20,7 +20,8 @@ const Login: React.FC = () => {
   const [selectedUser, setSelectedUser] = useState<string>('');
   const navigate = useNavigate();
 
-  useEffect(() => {
+
+  useEffect(() => {    
     UserApi.list()
       .then((res) => {
         setExistingUsers(res.data);
@@ -36,9 +37,9 @@ const Login: React.FC = () => {
     e.preventDefault();
     if (name && email) {
       UserApi.create(name, email)
-        .then(() => {
+        .then((res) => {
           alert(`Account created for ${name} (${email})`);
-          navigate('/subscriptions');
+          navigate(`${res.id}/subscriptions`);
         })
         .catch((e) => {
           alert(JSON.stringify(e));
@@ -51,7 +52,7 @@ const Login: React.FC = () => {
   // Handle user selection from dropdown
   const handleContinueAs = () => {
     if (selectedUser) {
-      navigate('/subscriptions');
+      navigate(`${selectedUser}/subscriptions`);
     } else {
       alert('Please select a user');
     }

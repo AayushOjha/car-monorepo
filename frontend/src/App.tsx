@@ -8,7 +8,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/subscriptions" element={<Subscriptions />} />
+        <Route path="/:userId/subscriptions" element={<Subscriptions />} />
         <Route path="/subscriptions/new" element={<NewSubscription />} />
       </Routes>
     </Router>

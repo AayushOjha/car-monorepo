@@ -4,9 +4,9 @@ import { generateCleaningSchedule } from '../utils/generateSchedule';
 
 // TODO: add pagination
 export const listUser = async (req: Request, res: Response) => {
-  let users = await db.user.findMany()
+  let users = await db.user.findMany();
   res.status(200).json(users);
-}
+};
 
 export const createUser = async (req: Request, res: Response) => {
   const { name, email } = req.body;
@@ -66,7 +66,7 @@ export const getUserSubscriptions = async (req: Request, res: Response) => {
 
   try {
     const subscriptions = await db.subscription.findMany({
-      where: { userId },
+      where: { userId, status: 'active' },
       include: {
         cleaningEvents: true
       }
@@ -93,7 +93,7 @@ export const cancelSubscription = async (req: Request, res: Response) => {
 
     // Check if the subscription has already started
     const currentDate = new Date();
-    if (subscription.startDate <= currentDate) {
+    if (new Date(subscription.startDate) <= currentDate) {
       return res.status(400).json({
         message: 'Cannot cancel a subscription that has already started'
       });
