@@ -5,6 +5,7 @@ import {
   bookServiceSchema
 } from '../middlewares/validations/validationSchemas';
 import {
+  listUser,
   bookService,
   createUser,
   getUserSubscriptions
@@ -12,6 +13,7 @@ import {
 
 const userRouter = Router();
 
+userRouter.get('/', listUser);
 userRouter.post('/', validate(createUserSchema), createUser);
 
 userRouter.post('/:userId/book', validate(bookServiceSchema), bookService);

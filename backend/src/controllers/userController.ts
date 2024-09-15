@@ -2,6 +2,12 @@ import { Request, Response } from 'express';
 import { db } from '../lib/db_client';
 import { generateCleaningSchedule } from '../utils/generateSchedule';
 
+// TODO: add pagination
+export const listUser = async (req: Request, res: Response) => {
+  let users = await db.user.findMany()
+  res.status(200).json(users);
+}
+
 export const createUser = async (req: Request, res: Response) => {
   const { name, email } = req.body;
 
@@ -54,6 +60,7 @@ export const bookService = async (req: Request, res: Response) => {
   }
 };
 
+// TODO: add pagination
 export const getUserSubscriptions = async (req: Request, res: Response) => {
   const { userId } = req.params;
 
