@@ -18,4 +18,6 @@ userRouter.post('/:userId/book', validate(bookServiceSchema), bookService);
 
 userRouter.get('/:userId/subscriptions', getUserSubscriptions);
 
+userRouter.post('/:userId/cancel-subscriptions', getUserSubscriptions);
+
 export { userRouter };

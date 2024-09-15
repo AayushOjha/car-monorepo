@@ -20,7 +20,7 @@ export const createUser = async (req: Request, res: Response) => {
 };
 
 export const bookService = async (req: Request, res: Response) => {
-  const { userId, carType, planType, startDate, timeSlot } = req.body; 
+  const { userId, carType, planType, startDate, timeSlot } = req.body;
 
   try {
     const subscription = await db.subscription.create({
@@ -68,5 +68,40 @@ export const getUserSubscriptions = async (req: Request, res: Response) => {
   } catch (error) {
     console.error('Error fetching subscriptions:', error);
     res.status(500).json({ error: 'Failed to fetch subscriptions' });
+  }
+};
+
+export const cancelSubscription = async (req: Request, res: Response) => {
+  const { userId, subscriptionId } = req.body;
+
+  try {
+    // Find the user's subscription
+    const subscription = await db.subscription.findFirst({
+      where: { id: subscriptionId, userId }
+    });
+
+    if (!subscription) {
+      return res.status(404).json({ message: 'Subscription not found' });
+    }
+
+    // Check if the subscription has already started
+    const currentDate = new Date();
+    if (subscription.startDate <= currentDate) {
+      return res.status(400).json({
+        message: 'Cannot cancel a subscription that has already started'
+      });
+    }
+    // Mark the subscription as cancelled
+    await db.subscription.update({
+      where: { id: subscriptionId },
+      data: { status: 'cancelled' }
+    });
+
+    return res
+      .status(200)
+      .json({ message: 'Subscription cancelled successfully' });
+  } catch (error) {
+    console.error('Error cancelling subscription:', error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 };
