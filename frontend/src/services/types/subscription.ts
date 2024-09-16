@@ -1,6 +1,6 @@
-type CarType = 'HATCHBACK' | 'SEDAN' | 'CSUV' | 'SUV';
+export type CarType = 'HATCHBACK' | 'SEDAN' | 'CSUV' | 'SUV';
 
-type PlanType = 'DAILY' | 'ALTERNATE';
+export type PlanType = 'DAILY' | 'ALTERNATE';
 
 export type TimeSlot = 'MORNING_6_8_AM' | 'MORNING_8_10_AM' | 'MORNING_10_12_AM';
 
@@ -20,3 +20,6 @@ export interface ISubscription {
   status: subscriptionStatus;
   // cleaningEvents CleaningEvent[]
 }
+
+
+export interface IPostSubscriptionFrom extends Pick<ISubscription, 'userId'|'carType'|'planType'|'startDate'|'timeSlot'> {}

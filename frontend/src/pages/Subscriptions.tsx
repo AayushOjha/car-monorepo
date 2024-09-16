@@ -79,12 +79,12 @@ const Subscriptions = () => {
       <h1 className="text-3xl font-bold mb-4">My Subscriptions</h1>
       <Button
         variant="contained"
-        onClick={() => navigate('/subscriptions/new')}
+        onClick={() => navigate(`/${userId}/subscriptions/new`)}
       >
         Add New Subscription
       </Button>
 
-      <div className="my-4 grid grid-cols-1 gap-4">
+      <div className="my-4 grid grid-cols-1 lg:grid-cols-3 gap-4">
         {subscriptions.map((subscription) => (
           <Card key={subscription.id.toString()} className="max-w-sm">
             <CardContent>
@@ -92,7 +92,7 @@ const Subscriptions = () => {
                 {subscription.planType} | {subscription.carType}
               </Typography>
               <Typography color="textSecondary">
-                Time Slot: {getTimeSlotString(subscription.timeSlot)}
+                Time Slot: {getTimeSlotString(subscription.timeSlot)} | Start date: {dayjs(subscription.startDate).format('DD MMM')}
               </Typography>
               <Typography color="textSecondary">
                 Status: {subscription.status}

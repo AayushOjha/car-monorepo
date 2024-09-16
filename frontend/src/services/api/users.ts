@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { IPostSubscriptionFrom } from '../types/subscription';
 
 const baseUrl = `http://localhost:4000/users`;
 
@@ -21,5 +22,9 @@ const cancelSubscription = async (userId: string) => {
   return axios.post(`${baseUrl}/${userId}/cancel-subscriptions`);
 };
 
-const UserApi = { list, create, listSubscription, cancelSubscription };
+const createSubscription = async (data: IPostSubscriptionFrom) => {
+  return axios.post(`${baseUrl}/${data.userId}/book`, data);
+}
+
+const UserApi = { list, create, listSubscription, cancelSubscription, createSubscription };
 export { UserApi };

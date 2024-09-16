@@ -9,7 +9,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/:userId/subscriptions" element={<Subscriptions />} />
-        <Route path="/subscriptions/new" element={<NewSubscription />} />
+        <Route path="/:userId/subscriptions/new" element={<NewSubscription />} />
       </Routes>
     </Router>
   );
