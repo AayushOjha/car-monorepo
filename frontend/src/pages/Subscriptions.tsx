@@ -54,14 +54,14 @@ const Subscriptions = () => {
   };
 
   const handleConfirmCancel = async () => {
-    if (selectedSubscription) {
+    if (selectedSubscription && userId) {
       try {
-        await UserApi.cancelSubscription(selectedSubscription.id);
+        await UserApi.cancelSubscription(userId, selectedSubscription.id);
         setSubscriptions(
           subscriptions.filter((sub) => sub.id !== selectedSubscription.id)
         );
         setOpen(false); // Close the dialog
-      } catch (error:any) {
+      } catch (error: any) {
         setErrorMessage(error.message);
         setOpen(true);
         console.error('Error canceling subscription:', error);
@@ -92,7 +92,8 @@ const Subscriptions = () => {
                 {subscription.planType} | {subscription.carType}
               </Typography>
               <Typography color="textSecondary">
-                Time Slot: {getTimeSlotString(subscription.timeSlot)} | Start date: {dayjs(subscription.startDate).format('DD MMM')}
+                Time Slot: {getTimeSlotString(subscription.timeSlot)} | Start
+                date: {dayjs(subscription.startDate).format('DD MMM')}
               </Typography>
               <Typography color="textSecondary">
                 Status: {subscription.status}

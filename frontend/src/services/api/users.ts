@@ -18,8 +18,8 @@ const listSubscription = async (userId: string) => {
   return axios.get(`${baseUrl}/${userId}/subscriptions`);
 };
 
-const cancelSubscription = async (userId: string) => {
-  return axios.post(`${baseUrl}/${userId}/cancel-subscriptions`);
+const cancelSubscription = async (userId: string, subscriptionId: string) => {
+  return axios.post(`${baseUrl}/${userId}/cancel-subscriptions`, {subscriptionId , userId});
 };
 
 const createSubscription = async (data: IPostSubscriptionFrom) => {

@@ -107,7 +107,7 @@ const Login: React.FC = () => {
             fullWidth
           >
             {existingUsers.map((user) => (
-              <MenuItem key={user.id} value={user.email}>
+              <MenuItem key={user.id} value={user.id}>
                 {user.name} ({user.email})
               </MenuItem>
             ))}
