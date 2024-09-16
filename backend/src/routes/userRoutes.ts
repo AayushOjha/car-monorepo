@@ -9,7 +9,8 @@ import {
   bookService,
   createUser,
   getUserSubscriptions,
-  cancelSubscription
+  cancelSubscription,
+  getUserSubscriptionById
 } from '../controllers/userController';
 
 const userRouter = Router();
@@ -19,6 +20,7 @@ userRouter.post('/', validate(createUserSchema), createUser);
 
 userRouter.post('/:userId/book', validate(bookServiceSchema), bookService);
 
+userRouter.get('/subscriptions/:subscriptionId', getUserSubscriptionById);
 userRouter.get('/:userId/subscriptions', getUserSubscriptions);
 
 userRouter.post('/:userId/cancel-subscriptions', cancelSubscription);

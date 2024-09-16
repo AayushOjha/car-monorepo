@@ -26,5 +26,11 @@ const createSubscription = async (data: IPostSubscriptionFrom) => {
   return axios.post(`${baseUrl}/${data.userId}/book`, data);
 }
 
-const UserApi = { list, create, listSubscription, cancelSubscription, createSubscription };
+// TODO:
+// !FIXME: this is not secure, any user can access other schedule data with id
+const getSubscriptionById = async (subscriptionId: string) => {
+  return axios.get(`${baseUrl}/subscriptions/${subscriptionId}`);
+}
+
+const UserApi = { list, create, listSubscription, cancelSubscription, createSubscription, getSubscriptionById };
 export { UserApi };

@@ -10,6 +10,13 @@ type EventStatus = 'PENDING' | 'COMPLETED';
 
 type subscriptionStatus = 'active' | 'canceled';
 
+interface CleaningEvent {
+  id: string;
+  eventType: string;
+  date: string;
+  status: string;
+}
+
 export interface ISubscription {
   id: string;
   userId: string;
@@ -18,7 +25,7 @@ export interface ISubscription {
   startDate: string;
   timeSlot: TimeSlot;
   status: subscriptionStatus;
-  // cleaningEvents CleaningEvent[]
+  cleaningEvents: CleaningEvent[]
 }
 
 

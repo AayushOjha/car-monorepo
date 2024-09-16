@@ -78,6 +78,23 @@ export const getUserSubscriptions = async (req: Request, res: Response) => {
   }
 };
 
+export const getUserSubscriptionById = async (req: Request, res: Response) => {
+  const { subscriptionId } = req.params;
+
+  try {
+    const subscriptions = await db.subscription.findFirst({
+      where: { id: subscriptionId, status: 'active' },
+      include: {
+        cleaningEvents: true
+      }
+    });
+    res.status(200).json(subscriptions);
+  } catch (error) {
+    console.error('Error fetching subscriptions:', error);
+    res.status(500).json({ error: 'Failed to fetch subscriptions' });
+  }
+};
+
 export const cancelSubscription = async (req: Request, res: Response) => {
   const { userId, subscriptionId } = req.body;
 
